@@ -283,7 +283,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     <p
                       className={`text-[14px] text-[#1D1C1D] leading-[21px] tracking-wide overflow-hidden overflow-ellipsis capitalize line-clamp-2`}
                     >
-                      {trademark?._source?.mark_description_description.join(
+                      {trademark?._source?.mark_description_description?.join(
                         ","
                       )}
                     </p>

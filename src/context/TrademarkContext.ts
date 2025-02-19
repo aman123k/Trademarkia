@@ -30,6 +30,7 @@ interface TrademarkContextType {
   loading: boolean;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
+  setIsClickSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Create context with default values
@@ -66,6 +67,7 @@ const TrademarkContext = createContext<TrademarkContextType>({
   loading: false,
   setCurrentPage: () => {},
   currentPage: 1,
+  setIsClickSearch: () => {},
 });
 
 // Provider component
@@ -94,8 +96,12 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [law_firms, setLaw_firms] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState<number>(1);
 
+  // check if user search with click
+  const [isClickSearch, setIsClickSearch] = useState<boolean>(false);
+
   useEffect(() => {
     searchQueryRef.current = searchQuery;
+    setIsClickSearch(true);
   }, [searchQuery]);
 
   const fetchTrademarks = useCallback(async () => {
@@ -133,12 +139,12 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       const data = await response.json();
       setTrademarks(data?.body?.hits);
-      if (current_owners?.buckets?.length === 0)
+      if (current_owners?.buckets?.length === 0 || isClickSearch)
         setCurrent_owners(data?.body?.aggregations?.current_owners);
 
-      if (allAttorneys?.buckets?.length === 0)
+      if (allAttorneys?.buckets?.length === 0 || isClickSearch)
         setAllAttorneys(data?.body?.aggregations?.attorneys);
-      if (allLaw_firms?.buckets?.length === 0)
+      if (allLaw_firms?.buckets?.length === 0 || isClickSearch)
         setAllLaw_firms(data?.body?.aggregations?.law_firms);
 
       setLoading(false);
@@ -155,6 +161,7 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     current_owners?.buckets?.length,
     allAttorneys?.buckets?.length,
     allLaw_firms?.buckets?.length,
+    isClickSearch,
   ]);
 
   // Fetch initial data on component mount
@@ -186,6 +193,7 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         loading,
         setCurrentPage,
         currentPage,
+        setIsClickSearch,
       },
     },
     children
