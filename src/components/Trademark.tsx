@@ -25,6 +25,9 @@ const TrademarkDataDisplay: React.FC = () => {
     menuOpen,
     loading,
     setCurrentPage,
+    setCurrent_owners,
+    setAllLaw_firms,
+    setAllAttorneys,
   } = useContext(TrademarkContext);
 
   useEffect(() => {
@@ -43,6 +46,18 @@ const TrademarkDataDisplay: React.FC = () => {
       window.removeEventListener("resize", handleResize);
     };
   }, []);
+
+  const upDateSta = (val: string) => {
+    setStatus([val]);
+    setMenuOpen(false);
+    setCurrentPage(1);
+    setOwners([]);
+    setLaw_firms([]);
+    setAttorneys([]);
+    setCurrent_owners({ buckets: [] });
+    setAllAttorneys({ buckets: [] });
+    setAllLaw_firms({ buckets: [] });
+  };
 
   return (
     <section className="bg-[#FEFEFE] ">
@@ -353,11 +368,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     ? "border-[#4380EC] bg-[#EEF4FF] text-[#4380EC]"
                     : "border-[#D1D1D1] text-[#1A1A1A]  "
                 }`}
-                onClick={() => {
-                  setStatus(["all"]);
-                  setMenuOpen(false);
-                  setCurrentPage(1);
-                }}
+                onClick={() => upDateSta("all")}
               >
                 All
               </button>
@@ -368,11 +379,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     ? "border-[#4380EC] bg-[#EEF4FF] text-[#4380EC]"
                     : "border-[#D1D1D1] text-[#1A1A1A]  "
                 }`}
-                onClick={() => {
-                  setStatus(["registered"]);
-                  setMenuOpen(false);
-                  setCurrentPage(1);
-                }}
+                onClick={() => upDateSta("registered")}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-green-500"></span>
                 <span>Registered</span>
@@ -384,11 +391,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     ? "border-[#4380EC] bg-[#EEF4FF] text-[#4380EC]"
                     : "border-[#D1D1D1] text-[#1A1A1A]  "
                 }`}
-                onClick={() => {
-                  setStatus(["pending"]);
-                  setMenuOpen(false);
-                  setCurrentPage(1);
-                }}
+                onClick={() => upDateSta("pending")}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-yellow-500"></span>
                 <span>Pending</span>
@@ -400,11 +403,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     ? "border-[#4380EC] bg-[#EEF4FF] text-[#4380EC]"
                     : "border-[#D1D1D1] text-[#1A1A1A]  "
                 }`}
-                onClick={() => {
-                  setStatus(["abandoned"]);
-                  setMenuOpen(false);
-                  setCurrentPage(1);
-                }}
+                onClick={() => upDateSta("abandoned")}
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-red-500"></span>
                 <span>Abandoned</span>
@@ -416,11 +415,7 @@ const TrademarkDataDisplay: React.FC = () => {
                     ? "border-[#4380EC] bg-[#EEF4FF] text-[#4380EC]"
                     : "border-[#D1D1D1] text-[#1A1A1A]  "
                 }`}
-                onClick={() => {
-                  setStatus(["other"]);
-                  setMenuOpen(false);
-                  setCurrentPage(1);
-                }}
+                onClick={() => upDateSta("other")}
               >
                 <span className="flex items-center space-x-1">
                   <span className="h-1.5 w-1.5 rounded-full bg-blue-500"></span>

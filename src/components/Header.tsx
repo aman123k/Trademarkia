@@ -5,12 +5,21 @@ import { TrademarkContext } from "../context/TrademarkContext";
 import toast from "react-hot-toast";
 
 function Header() {
-  const { searchQuery, setSearchQuery, fetchTrademarks } =
-    useContext(TrademarkContext);
+  const {
+    searchQuery,
+    setSearchQuery,
+    fetchTrademarks,
+    setCurrent_owners,
+    setAllLaw_firms,
+    setAllAttorneys,
+  } = useContext(TrademarkContext);
   const handleClick = () => {
     if (!searchQuery.trim()) {
       toast.error("Please enter a value to search for.");
     } else {
+      setCurrent_owners({ buckets: [] });
+      setAllAttorneys({ buckets: [] });
+      setAllLaw_firms({ buckets: [] });
       fetchTrademarks();
     }
   };

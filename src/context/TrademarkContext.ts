@@ -30,6 +30,9 @@ interface TrademarkContextType {
   loading: boolean;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
+  setCurrent_owners: React.Dispatch<React.SetStateAction<Aggregations>>;
+  setAllAttorneys: React.Dispatch<React.SetStateAction<Aggregations>>;
+  setAllLaw_firms: React.Dispatch<React.SetStateAction<Aggregations>>;
 }
 
 // Create context with default values
@@ -66,6 +69,9 @@ const TrademarkContext = createContext<TrademarkContextType>({
   loading: false,
   setCurrentPage: () => {},
   currentPage: 1,
+  setCurrent_owners: () => {},
+  setAllAttorneys: () => {},
+  setAllLaw_firms: () => {},
 });
 
 // Provider component
@@ -135,35 +141,13 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       const data = await response.json();
       setTrademarks(data?.body?.hits);
-      // Update current owners if no previous data or if data has changed
-      if (
-        current_owners?.buckets?.length === 0 ||
-        (owners.length <= 0 &&
-          JSON.stringify(current_owners) !==
-            JSON.stringify(data?.body?.aggregations?.current_owners))
-      ) {
+      if (current_owners?.buckets?.length === 0)
         setCurrent_owners(data?.body?.aggregations?.current_owners);
-      }
 
-      // Update all attorneys if no previous data or if data has changed
-      if (
-        allAttorneys?.buckets?.length === 0 ||
-        (attorneys.length <= 0 &&
-          JSON.stringify(allAttorneys) !==
-            JSON.stringify(data?.body?.aggregations?.attorneys))
-      ) {
+      if (allAttorneys?.buckets?.length === 0)
         setAllAttorneys(data?.body?.aggregations?.attorneys);
-      }
-
-      // Update all law firms if no previous data or if data has changed
-      if (
-        allLaw_firms?.buckets?.length === 0 ||
-        (law_firms.length <= 0 &&
-          JSON.stringify(law_firms) !==
-            JSON.stringify(data?.body?.aggregations?.law_firms))
-      ) {
+      if (allLaw_firms?.buckets?.length === 0)
         setAllLaw_firms(data?.body?.aggregations?.law_firms);
-      }
 
       setLoading(false);
     } catch (err) {
@@ -176,9 +160,9 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     attorneys,
     law_firms,
     currentPage,
+    current_owners?.buckets?.length,
+    allAttorneys?.buckets?.length,
     allLaw_firms?.buckets?.length,
-    allAttorneys,
-    current_owners,
   ]);
 
   // Fetch initial data on component mount
@@ -210,6 +194,9 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         loading,
         setCurrentPage,
         currentPage,
+        setCurrent_owners,
+        setAllAttorneys,
+        setAllLaw_firms,
       },
     },
     children
