@@ -6,7 +6,7 @@ import { TrademarkContext } from "../context/TrademarkContext";
 import { GiArtificialHive } from "react-icons/gi";
 
 function FilterSec() {
-  const { searchQuery, setMenuOpen } = useContext(TrademarkContext);
+  const { searchQuery, setMenuOpen, trademarks } = useContext(TrademarkContext);
   return (
     <section className="bg-[#FEFEFE] ">
       <section
@@ -14,7 +14,8 @@ function FilterSec() {
        max-[850px]:px-14 max-[650px]:px-5 max-[650px]:gap-4 max-[650px]:flex-col max-[650px]:items-start"
       >
         <p className=" text-[#4B5563] text-[16px] font-semibold tracking-wide leading-[30px] py-4 max-[650px]:text-[14px]">
-          About 159 Trademarks found for “nike”
+          About {trademarks?.total?.value ?? 0} Trademarks found for "
+          {searchQuery}"
         </p>
         <hr color="#E7E6E6" className=" h-[1.5px]" />
         <section
