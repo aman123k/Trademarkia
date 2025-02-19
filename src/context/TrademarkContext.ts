@@ -142,7 +142,6 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
       if (allLaw_firms?.buckets?.length === 0)
         setAllLaw_firms(data?.body?.aggregations?.law_firms);
 
-      console.log(data);
       setLoading(false);
     } catch (err) {
       console.log("while fetching data", err);

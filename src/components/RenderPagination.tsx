@@ -88,10 +88,10 @@ function RenderPagination() {
     pageButtons.push(
       <button
         key={trademarks?.total?.value}
-        onClick={() => setCurrentPage(trademarks?.total?.value / 10)}
+        onClick={() => setCurrentPage(Math.ceil(trademarks?.total?.value / 10))}
         className="px-2.5 py-0.5 border rounded text-sm text-gray-500 hover:bg-gray-50"
       >
-        {trademarks?.total?.value / 10}
+        {Math.ceil(trademarks?.total?.value / 10)}
       </button>
     );
   }
