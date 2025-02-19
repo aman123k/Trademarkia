@@ -4,11 +4,10 @@ import { LuSearch } from "react-icons/lu";
 import { TrademarkContext } from "../context/TrademarkContext";
 
 function Header() {
-  const { searchQuery, setSearchQuery, fetchTrademarks, setIsClickSearch } =
+  const { searchQuery, setSearchQuery, fetchTrademarks } =
     useContext(TrademarkContext);
   const handleClick = () => {
     fetchTrademarks();
-    setIsClickSearch(false);
   };
 
   return (

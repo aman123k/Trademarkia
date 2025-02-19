@@ -139,13 +139,35 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
 
       const data = await response.json();
       setTrademarks(data?.body?.hits);
-      if (current_owners?.buckets?.length === 0 || isClickSearch)
+      // Update current owners if no previous data or if data has changed
+      if (
+        current_owners?.buckets?.length === 0 ||
+        (owners.length <= 0 &&
+          JSON.stringify(current_owners) !==
+            JSON.stringify(data?.body?.aggregations?.current_owners))
+      ) {
         setCurrent_owners(data?.body?.aggregations?.current_owners);
+      }
 
-      if (allAttorneys?.buckets?.length === 0 || isClickSearch)
+      // Update all attorneys if no previous data or if data has changed
+      if (
+        allAttorneys?.buckets?.length === 0 ||
+        (attorneys.length <= 0 &&
+          JSON.stringify(allAttorneys) !==
+            JSON.stringify(data?.body?.aggregations?.attorneys))
+      ) {
         setAllAttorneys(data?.body?.aggregations?.attorneys);
-      if (allLaw_firms?.buckets?.length === 0 || isClickSearch)
+      }
+
+      // Update all law firms if no previous data or if data has changed
+      if (
+        allLaw_firms?.buckets?.length === 0 ||
+        (law_firms.length <= 0 &&
+          JSON.stringify(law_firms) !==
+            JSON.stringify(data?.body?.aggregations?.law_firms))
+      ) {
         setAllLaw_firms(data?.body?.aggregations?.law_firms);
+      }
 
       setLoading(false);
     } catch (err) {
@@ -158,10 +180,9 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
     attorneys,
     law_firms,
     currentPage,
-    current_owners?.buckets?.length,
-    allAttorneys?.buckets?.length,
     allLaw_firms?.buckets?.length,
-    isClickSearch,
+    allAttorneys,
+    current_owners,
   ]);
 
   // Fetch initial data on component mount
