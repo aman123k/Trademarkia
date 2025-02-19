@@ -259,7 +259,7 @@ const TrademarkDataDisplay: React.FC = () => {
                             ? "text-yellow-500"
                             : trademark?._source?.status_type === "abandoned"
                             ? "text-red-500"
-                            : "text-[#1A1A1A]" // Default color
+                            : "text-[#3C82F6]" // Default color
                         }`}
                       >
                         <GoDotFill
@@ -270,7 +270,7 @@ const TrademarkDataDisplay: React.FC = () => {
                               ? "text-yellow-500"
                               : trademark?._source?.status_type === "abandoned"
                               ? "text-red-500"
-                              : "text-[#1A1A1A]" // Default color
+                              : "text-[#3C82F6]" // Default color
                           }`}
                           size={16}
                         />
