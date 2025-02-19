@@ -97,7 +97,6 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   useEffect(() => {
     searchQueryRef.current = searchQuery;
   }, [searchQuery]);
-  console.log(trademarks);
 
   const fetchTrademarks = useCallback(async () => {
     try {

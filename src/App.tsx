@@ -17,8 +17,8 @@ function App() {
       <div className=" flex flex-col relative">
         <FilterSec />
         <TrademarkDataDisplay />
+        <RenderPagination />
       </div>
-      <RenderPagination />
     </div>
   );
 }
