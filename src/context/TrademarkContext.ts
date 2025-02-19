@@ -30,7 +30,6 @@ interface TrademarkContextType {
   loading: boolean;
   setCurrentPage: React.Dispatch<React.SetStateAction<number>>;
   currentPage: number;
-  setIsClickSearch: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 // Create context with default values
@@ -67,7 +66,6 @@ const TrademarkContext = createContext<TrademarkContextType>({
   loading: false,
   setCurrentPage: () => {},
   currentPage: 1,
-  setIsClickSearch: () => {},
 });
 
 // Provider component
@@ -97,11 +95,9 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [currentPage, setCurrentPage] = useState<number>(1);
 
   // check if user search with click
-  const [isClickSearch, setIsClickSearch] = useState<boolean>(false);
 
   useEffect(() => {
     searchQueryRef.current = searchQuery;
-    setIsClickSearch(true);
   }, [searchQuery]);
 
   const fetchTrademarks = useCallback(async () => {
@@ -214,7 +210,6 @@ const TrademarkProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
         loading,
         setCurrentPage,
         currentPage,
-        setIsClickSearch,
       },
     },
     children
