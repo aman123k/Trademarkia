@@ -2,12 +2,17 @@ import { useContext } from "react";
 import logo from "../images/logo.png";
 import { LuSearch } from "react-icons/lu";
 import { TrademarkContext } from "../context/TrademarkContext";
+import toast from "react-hot-toast";
 
 function Header() {
   const { searchQuery, setSearchQuery, fetchTrademarks } =
     useContext(TrademarkContext);
   const handleClick = () => {
-    fetchTrademarks();
+    if (!searchQuery.trim()) {
+      toast.error("Please enter a value to search for.");
+    } else {
+      fetchTrademarks();
+    }
   };
 
   return (

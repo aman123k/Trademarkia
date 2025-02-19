@@ -4,6 +4,7 @@ import FilterSec from "./components/FilterSec";
 import TrademarkDataDisplay from "./components/Trademark";
 import { TrademarkContext } from "./context/TrademarkContext";
 import RenderPagination from "./components/RenderPagination";
+import { Toaster } from "react-hot-toast";
 
 function App() {
   const { menuOpen } = useContext(TrademarkContext);
@@ -19,6 +20,7 @@ function App() {
         <TrademarkDataDisplay />
         <RenderPagination />
       </div>
+      <Toaster position="top-center" reverseOrder={false} />
     </div>
   );
 }
