@@ -12,11 +12,18 @@ function Header() {
     setCurrent_owners,
     setAllLaw_firms,
     setAllAttorneys,
+    setOwners,
+    setLaw_firms,
+    setAttorneys,
   } = useContext(TrademarkContext);
+
   const handleClick = () => {
     if (!searchQuery.trim()) {
       toast.error("Please enter a value to search for.");
     } else {
+      setOwners([]);
+      setLaw_firms([]);
+      setAttorneys([]);
       setCurrent_owners({ buckets: [] });
       setAllAttorneys({ buckets: [] });
       setAllLaw_firms({ buckets: [] });
